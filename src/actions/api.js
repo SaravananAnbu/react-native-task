@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const API = axios.create({
@@ -13,7 +14,8 @@ const API = axios.create({
 API.interceptors.request.use(
     async (config) => {
         // Inssert Auth for Each API request here Globally using axios interceptor
-        
+        const token = await AsyncStorage.getItem('token');
+        config.headers["Authorization"] = token === null ? "" : "Bearer "+token;
         return config;
     },
     error => Promise.reject(error)
@@ -24,6 +26,7 @@ API.interceptors.response.use(
         return response
     }, 
     async (error) => {
+        console.log(error.response, "RESS")
         // If err happens redirect to login page
         if(error.response?.status === 401) {
             // Redirect to login page

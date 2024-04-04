@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, ScrollView, Text, StyleSheet, Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../actions/products';
+import allStyles from '../styles/common';
 
 const AddProductForm = () => {
     const [product, setProduct] = useState({
@@ -29,9 +30,9 @@ const AddProductForm = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.label}>Title</Text>
+            <Text style={allStyles.label}>Title</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Title"
                 value={product.title}
                 onChangeText={(text) => handleChange('title', text)}
@@ -40,9 +41,9 @@ const AddProductForm = () => {
                 returnKeyType="next"
                 
             />
-            <Text style={styles.label}>Description</Text>
+            <Text style={allStyles.label}>Description</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Description"
                 value={product.description}
                 onChangeText={(text) => handleChange('description', text)}
@@ -52,9 +53,9 @@ const AddProductForm = () => {
                 multiline={true}
                 numberOfLines={4}
             />
-            <Text style={styles.label}>Price</Text>
+            <Text style={allStyles.label}>Price</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Price"
                 value={product.price}
                 onChangeText={(text) => handleChange('price', text)}
@@ -63,9 +64,9 @@ const AddProductForm = () => {
                 placeholderTextColor="#777"
                 keyboardType="numeric"
             />
-            <Text style={styles.label}>Discount Percentage</Text>
+            <Text style={allStyles.label}>Discount Percentage</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Discount Percentage"
                 value={product.discountPercentage}
                 onChangeText={(text) => handleChange('discountPercentage', text)}
@@ -76,9 +77,9 @@ const AddProductForm = () => {
             />
             <View style={{ flexDirection: 'row', flex: 1, justifyContent: "space-between"}}>
                 <View style={{ flex: 1, marginRight: 5 }}>
-                    <Text style={styles.label}>Rating</Text>
+                    <Text style={allStyles.label}>Rating</Text>
                     <TextInput
-                        style={styles.input}
+                        style={allStyles.input}
                         placeholder="Enter Rating"
                         value={product.rating}
                         onChangeText={(text) => handleChange('rating', text)}
@@ -89,9 +90,9 @@ const AddProductForm = () => {
                     />
                 </View>
                 <View style={{ flex: 1, marginLeft: 5 }}>
-                    <Text style={styles.label}>Stock</Text>
+                    <Text style={allStyles.label}>Stock</Text>
                     <TextInput
-                        style={styles.input}
+                        style={allStyles.input}
                         placeholder="Enter Stock"
                         value={product.stock}
                         onChangeText={(text) => handleChange('stock', text)}
@@ -102,9 +103,9 @@ const AddProductForm = () => {
                     />
                 </View>
             </View>
-            <Text style={styles.label}>Brand</Text>
+            <Text style={allStyles.label}>Brand</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Brand"
                 value={product.brand}
                 onChangeText={(text) => handleChange('brand', text)}
@@ -112,9 +113,9 @@ const AddProductForm = () => {
                 ref={(input) => brandInput = input}
                 placeholderTextColor="#777"
             />
-            <Text style={styles.label}>Category</Text>
+            <Text style={allStyles.label}>Category</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Category"
                 value={product.category}
                 onChangeText={(text) => handleChange('category', text)}
@@ -122,9 +123,9 @@ const AddProductForm = () => {
                 ref={(input) => categoryInput = input}
                 placeholderTextColor="#777"
             />
-            <Text style={styles.label}>Thumbnail URL</Text>
+            <Text style={allStyles.label}>Thumbnail URL</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Thumbnail URL"
                 value={product.thumbnail}
                 onChangeText={(text) => handleChange('thumbnail', text)}
@@ -132,9 +133,9 @@ const AddProductForm = () => {
                 ref={(input) => thumbnailInput = input}
                 placeholderTextColor="#777"
             />
-            <Text style={styles.label}>Image URLs (Comma separated)</Text>
+            <Text style={allStyles.label}>Image URLs (Comma separated)</Text>
             <TextInput
-                style={styles.input}
+                style={allStyles.input}
                 placeholder="Enter Image URLs (comma separated)"
                 value={product.images.join(',')}
                 onChangeText={(text) => handleChange('images', text.split(','))}
@@ -143,7 +144,10 @@ const AddProductForm = () => {
                 multiline={true}
                 numberOfLines={2}
             />
-            <Button title="Submit" onPress={handleSubmit} />
+            {/* <Button style title="Submit" onPress={handleSubmit} /> */}
+            <Pressable style={allStyles.btn} onPress={handleSubmit}>
+                <Text style={allStyles.btnTxt}>Submit</Text>
+            </Pressable>
         </ScrollView>
     );
 };
@@ -153,22 +157,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'center',
         padding: 20,
-    },
-    label: {
-        fontSize: 15,
-        marginTop: 15,
-        marginBottom: 5,
-        color: "#777"
-    },
-    input: {
-        marginBottom: 10,
-        padding: 10,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        color: "#000",
-        fontWeight: "700"
-    },
+    }
 });
 
 export default AddProductForm;

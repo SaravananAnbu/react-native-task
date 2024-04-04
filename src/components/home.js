@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearProducts, getAllProducts } from "../actions/products";
 import Product from "./product";
 import { useState } from "react";
+import allStyles from "../styles/common";
 
 const Home = ({ navigation }) => {
     const [page, setPage] = useState(0);
@@ -23,8 +24,8 @@ const Home = ({ navigation }) => {
         setLoading(false);
     }, [products])
 
-    const viewProduct = (productId) => {
-        navigation.navigate("Product", { productId: productId })
+    const viewProduct = (productId, productName) => {
+        navigation.navigate("Product", { productId: productId, productName })
     }
 
     const loadMore = () => {
@@ -36,8 +37,8 @@ const Home = ({ navigation }) => {
         <View>
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 15, borderBottomColor: "#777", borderBottomWidth: 0.5 }}>
                 <Text style={[styles.btnTxt, { color: "#000", fontSize: 19 }]}>All Products</Text>
-                <Pressable style={[styles.btn, { opacity: isAuth ? 1 : 0.5 }]} onPress={() => navigation.navigate("AddProduct")} disabled={!isAuth}>
-                    <Text style={styles.btnTxt}>Add Product</Text>
+                <Pressable style={[allStyles.btn, { opacity: isAuth ? 1 : 0.5, width: "40%", marginTop: 0 }]} onPress={() => navigation.navigate("AddProduct")} disabled={!isAuth}>
+                    <Text style={[allStyles.btnTxt, { fontSize: 14 }]}>+ Add Product</Text>
                 </Pressable>
             </View>
             <FlatList

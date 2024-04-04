@@ -1,5 +1,6 @@
 import { Image, Pressable, StyleSheet, Text, View, ScrollView, Dimensions, FlatList } from "react-native";
 import Rating from "./rating";
+import allStyles from "../styles/common";
 
 const window = Dimensions.get("window");
 
@@ -44,8 +45,8 @@ const Product = ({ item, viewProduct, isProductDetail }) => {
                     <Text style={styles.desc}>{item.description}</Text>
                     {isProductDetail && <Text style={styles.stock}>Category: {item.category}</Text>}
                 </View>
-                {!isProductDetail && <Pressable style={styles.btn} onPress={() => viewProduct(item.id)}>
-                    <Text style={styles.btnTxt}>VIEW PRODUCT</Text>
+                {!isProductDetail && <Pressable style={[allStyles.btn, { backgroundColor: "#fff" }]} onPress={() => viewProduct(item.id, item.title)}>
+                    <Text style={[allStyles.btnTxt, { color: allStyles.btn.backgroundColor }]}>VIEW PRODUCT</Text>
                 </Pressable>}
             </View>
             {!isProductDetail &&<Text style={styles.category}>{item.category}</Text>}
@@ -108,28 +109,6 @@ const styles = StyleSheet.create({
     desc: {
         marginTop: 5,
         color: "grey"
-    },
-    btn: {
-        marginTop: 15,
-        backgroundColor: "#00246B",
-        paddingVertical: 10,
-        borderRadius: 10,
-        borderColor: "#00246B",
-        borderWidth: 2,
-        shadowColor: "#f8faff",
-        shadowOffset: {
-          width: 10,
-          height: 5
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 3.84,
-        elevation: 1,
-    },
-    btnTxt: {
-        fontSize: 17,
-        color: "#fff",
-        fontWeight: "900",
-        textAlign: "center",
     },
     category: {
         position: "absolute",

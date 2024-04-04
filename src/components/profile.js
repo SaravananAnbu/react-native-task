@@ -1,32 +1,36 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
+import allStyles from '../styles/common';
 
-const Profile = ({ user }) => {
+const Profile = ({ user, logout }) => {
     const { id, username, email, firstName, lastName, gender, image } = user;
 
     return (
         <View style={styles.container}>
             <Image source={{ uri: image }} style={styles.profileImage} />
             <View style={styles.userInfo}>
-                <Text style={styles.label}>Username:</Text>
+                <Text style={allStyles.label}>Username:</Text>
                 <Text style={styles.value}>{username}</Text>
             </View>
             <View style={styles.userInfo}>
-                <Text style={styles.label}>Email:</Text>
+                <Text style={allStyles.label}>Email:</Text>
                 <Text style={styles.value}>{email}</Text>
             </View>
             <View style={styles.userInfo}>
-                <Text style={styles.label}>First Name:</Text>
+                <Text style={allStyles.label}>First Name:</Text>
                 <Text style={styles.value}>{firstName}</Text>
             </View>
             <View style={styles.userInfo}>
-                <Text style={styles.label}>Last Name:</Text>
+                <Text style={allStyles.label}>Last Name:</Text>
                 <Text style={styles.value}>{lastName}</Text>
             </View>
             <View style={styles.userInfo}>
-                <Text style={styles.label}>Gender:</Text>
+                <Text style={allStyles.label}>Gender:</Text>
                 <Text style={styles.value}>{gender}</Text>
             </View>
+            <Pressable style={[allStyles.btn, {width: "80%"}]} onPress={logout}>
+                <Text style={allStyles.btnTxt}>Log out</Text>
+            </Pressable>
         </View>
     );
 };
@@ -50,14 +54,9 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
         justifyContent: "flex-start"
     },
-    label: {
-        marginBottom: 5,
-        color: "#777",
-        fontSize: 18
-    },
     value: {
         fontWeight: 'bold',
-        marginBottom: 15,
+        marginBottom: 5,
         color: "#777",
         fontSize: 18
     },

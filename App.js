@@ -46,6 +46,9 @@ function HomeScreen() {
             />
             <Stack.Screen
                 component={ProductDetail}
+                options={({ route }) => ({
+                    title: route.params.productName
+                })}
                 name="Product"
             />
             <Stack.Screen

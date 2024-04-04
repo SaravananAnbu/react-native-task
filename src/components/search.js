@@ -1,8 +1,10 @@
 import { useEffect } from "react";
-import { Alert, FlatList, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { clearProducts, searchProducts } from "../actions/products";
+import { clearSearchProducts, searchProducts } from "../actions/products";
 import Product from "./product";
+import allStyles from "../styles/common";
+import { useState } from "react";
 
 function debounce(func, waitTime) {
     let timeout;
@@ -15,6 +17,7 @@ function debounce(func, waitTime) {
 }
 
 const Search = ({ navigation }) => {
+    const [searchString, setSearchString] = useState("");
     const products = useSelector(state => state.AppReducer.searchProducts);
     const dispatch = useDispatch();
     // const handleChange = (text) => {
@@ -33,19 +36,29 @@ const Search = ({ navigation }) => {
         // dispatch(clearProducts());
     }, []);
 
+    const clearAll = () => {
+        setSearchString("");
+        dispatch(clearSearchProducts());
+    }
+
     return (
         <View style={{ paddingBottom: 150 }}>
-            <View style={{ alignItems: "center",}}>
+            <View style={{ alignItems: "center",flexDirection:"row", justifyContent: "space-evenly"}}>
                 <TextInput
-                    style={styles.textInput}
-                    onChangeText={(text) => handleChange(text) }
+                    style={[allStyles.textInput, { fontSize: 18, height: 55, width: "78%" }]}
+                    onChangeText={(text) => {
+                        handleChange(text);
+                        setSearchString(text);
+                    }}
+                    value={searchString}
                     keyboardType="web-search"
                     placeholder="Search Products"
                     placeholderTextColor="#777"
                 />
+                <Pressable onPress={clearAll} style={[allStyles.btn, {width: "13%", height: 50, borderRadius: 5, paddingVertical: 0, paddingBottom: 5, justifyContent: "center", alignItems: "center" }]}><Text style={[allStyles.btnTxt, { fontSize: 25}]}>x</Text></Pressable>
             </View>
             <View>
-                {products?.length > 0 && 
+                {products?.length > 0 ? 
                     <FlatList
                         data={products}
                         renderItem={({ item, index }) => (
@@ -58,26 +71,11 @@ const Search = ({ navigation }) => {
                         keyExtractor={(item, i) => i}
                         contentContainerStyle={{ flexDirection: "column" }}
                         onEndReachedThreshold={0.8}
-                    />
+                    /> : <Text style={[allStyles.label, { textAlign: "center"}]}>No results found</Text>
                 }
             </View>
         </View>
     )
 }
-
-
-const styles = StyleSheet.create({
-    textInput: {
-        width: "90%",
-        paddingHorizontal: 15,
-        backgroundColor: "#fff",
-        borderRadius: 10,
-        marginTop: 20,
-        borderWidth: 1,
-        borderColor: "#ddd",
-        height: 45,
-        color: "#000"
-    }
-})
 
 export default Search;

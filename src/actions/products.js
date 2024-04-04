@@ -44,6 +44,12 @@ export function clearProducts() {
     }
 }
 
+export function clearSearchProducts() {
+    return dispatch => {
+        dispatch({ type: "SEARCH_PRODUCTS", products: [] })
+    }
+}
+
 export function addProduct(data) {
     return dispatch => {
         return API.post("/products/add", data).then(

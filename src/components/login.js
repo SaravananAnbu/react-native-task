@@ -25,6 +25,7 @@ const Login = () => {
         .then(async res => {
             console.log(res)
             await AsyncStorage.setItem("user", JSON.stringify(res));
+            await AsyncStorage.setItem("token",res.token);
             dispatch({ type: "SET_CURRENT_USER", user: res })
         }).catch(err => console.log(err, "Err"));
     }
