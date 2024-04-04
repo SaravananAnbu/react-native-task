@@ -4,14 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Product from "./product";
 import { getProduct } from "../actions/products";
 
-const ProductDetail = ({ navigation, route }) => {
-    const dispatch = useDispatch();
-    const product = useSelector(state => state.AppReducer.product);
+const ProductDetail = ({ navigation, route }: any) => {
+    const dispatch = useDispatch() as any;
+    const product = useSelector((state: any) => state.AppReducer.product);
     useEffect(() => {
         const { productId } = route.params;
         dispatch(getProduct(productId));
     }, []);
-    console.log(product, "PPP")
     return (
         <View style={{ flex: 1 }}>
             {product && 

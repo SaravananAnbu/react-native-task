@@ -1,0 +1,21 @@
+{
+    "home": "Home",
+    "search": "Search",
+    "accoun": "Account",
+    "searchProducts": "Search Products",
+    "noResultsFound": "No results found",
+    "username": "Username",
+    "password": "Password",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "gender": "Gender",
+    "logout": "Log out",
+    "addProduct": "Add Product",
+    "allProducts": "All Products",
+    "brand": "Brand",
+    "stock": "Stock",
+    "category": "Category",
+    "viewProduct": "View Product",
+    "loginTitle": "Please login to continue"
+}

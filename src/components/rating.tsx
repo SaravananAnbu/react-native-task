@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Rating = ({ rating }) => {
+const Rating = ({ rating }: any) => {
     return (
         <View style={styles.container}>
             {[...Array(5).keys()].map((index) => (

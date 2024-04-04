@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, TextInput, Button, ScrollView, Text, StyleSheet, Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../actions/products';
@@ -18,15 +18,25 @@ const AddProductForm = () => {
         images: []
     });
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch() as any;
 
-    const handleChange = (field, value) => {
+    const handleChange = (field: string, value: string | number) => {
         setProduct({ ...product, [field]: value });
     };
 
     const handleSubmit = () => {
         dispatch(addProduct(product));
     };
+
+    const descriptionInput = useRef<TextInput>(null);
+    const priceInput = useRef<TextInput>(null);
+    const discountPercentageInput = useRef<TextInput>(null);
+    const ratingInput = useRef<TextInput>(null);
+    const stockInput = useRef<TextInput>(null);
+    const brandInput = useRef<TextInput>(null);
+    const categoryInput = useRef<TextInput>(null);
+    const thumbnailInput = useRef<TextInput>(null);
+    const imagesInput = useRef<TextInput>(null);
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -36,7 +46,7 @@ const AddProductForm = () => {
                 placeholder="Enter Title"
                 value={product.title}
                 onChangeText={(text) => handleChange('title', text)}
-                onSubmitEditing={() => { descriptionInput.focus()}}
+                onSubmitEditing={() => { descriptionInput.current?.focus()}}
                 placeholderTextColor="#777"
                 returnKeyType="next"
                 
@@ -48,8 +58,8 @@ const AddProductForm = () => {
                 value={product.description}
                 onChangeText={(text) => handleChange('description', text)}
                 placeholderTextColor="#777"
-                ref={(input) => descriptionInput = input}
-                onSubmitEditing={() => { priceInput.focus()}}
+                ref={descriptionInput}
+                onSubmitEditing={() => priceInput.current?.focus()}
                 multiline={true}
                 numberOfLines={4}
             />
@@ -59,8 +69,8 @@ const AddProductForm = () => {
                 placeholder="Enter Price"
                 value={product.price}
                 onChangeText={(text) => handleChange('price', text)}
-                ref={(input) => priceInput = input}
-                onSubmitEditing={() => { discountPercentageInput.focus()}}
+                ref={priceInput}
+                onSubmitEditing={() => discountPercentageInput.current?.focus()}
                 placeholderTextColor="#777"
                 keyboardType="numeric"
             />
@@ -70,8 +80,8 @@ const AddProductForm = () => {
                 placeholder="Enter Discount Percentage"
                 value={product.discountPercentage}
                 onChangeText={(text) => handleChange('discountPercentage', text)}
-                ref={(input) => discountPercentageInput = input}
-                onSubmitEditing={() => { ratingInput.focus()}}
+                ref={discountPercentageInput}
+                onSubmitEditing={() => ratingInput.current?.focus()}
                 placeholderTextColor="#777"
                 keyboardType="numeric"
             />
@@ -83,8 +93,8 @@ const AddProductForm = () => {
                         placeholder="Enter Rating"
                         value={product.rating}
                         onChangeText={(text) => handleChange('rating', text)}
-                        onSubmitEditing={() => { stockInput.focus()}}
-                        ref={(input) => ratingInput = input}
+                        onSubmitEditing={() => stockInput.current?.focus()}
+                        ref={ratingInput}
                         placeholderTextColor="#777"
                         keyboardType="numeric"
                     />
@@ -96,8 +106,8 @@ const AddProductForm = () => {
                         placeholder="Enter Stock"
                         value={product.stock}
                         onChangeText={(text) => handleChange('stock', text)}
-                        onSubmitEditing={() => { brandInput.focus()}}
-                        ref={(input) => stockInput = input}
+                        onSubmitEditing={() => brandInput.current?.focus()}
+                        ref={stockInput}
                         placeholderTextColor="#777"
                         keyboardType="numeric"
                     />
@@ -109,8 +119,8 @@ const AddProductForm = () => {
                 placeholder="Enter Brand"
                 value={product.brand}
                 onChangeText={(text) => handleChange('brand', text)}
-                onSubmitEditing={() => { categoryInput.focus()}}
-                ref={(input) => brandInput = input}
+                onSubmitEditing={() => categoryInput.current?.focus()}
+                ref={brandInput}
                 placeholderTextColor="#777"
             />
             <Text style={allStyles.label}>Category</Text>
@@ -119,8 +129,8 @@ const AddProductForm = () => {
                 placeholder="Enter Category"
                 value={product.category}
                 onChangeText={(text) => handleChange('category', text)}
-                onSubmitEditing={() => { thumbnailInput.focus()}}
-                ref={(input) => categoryInput = input}
+                onSubmitEditing={() => thumbnailInput.current?.focus()}
+                ref={categoryInput}
                 placeholderTextColor="#777"
             />
             <Text style={allStyles.label}>Thumbnail URL</Text>
@@ -129,8 +139,8 @@ const AddProductForm = () => {
                 placeholder="Enter Thumbnail URL"
                 value={product.thumbnail}
                 onChangeText={(text) => handleChange('thumbnail', text)}
-                onSubmitEditing={() => { imagesInput.focus()}}
-                ref={(input) => thumbnailInput = input}
+                onSubmitEditing={() => imagesInput.current?.focus()}
+                ref={thumbnailInput}
                 placeholderTextColor="#777"
             />
             <Text style={allStyles.label}>Image URLs (Comma separated)</Text>
@@ -138,9 +148,9 @@ const AddProductForm = () => {
                 style={allStyles.input}
                 placeholder="Enter Image URLs (comma separated)"
                 value={product.images.join(',')}
-                onChangeText={(text) => handleChange('images', text.split(','))}
+                onChangeText={(text) => handleChange('images', text)}
                 placeholderTextColor="#777"
-                ref={(input) => imagesInput = input}
+                ref={imagesInput}
                 multiline={true}
                 numberOfLines={2}
             />

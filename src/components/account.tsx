@@ -5,8 +5,8 @@ import Profile from "./profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Account = () => {
-    const isAuth = useSelector(state => state.AppReducer.isAuth);
-    const user = useSelector(state => state.AppReducer.user);
+    const isAuth = useSelector((state: any) => state.AppReducer.isAuth);
+    const user = useSelector((state: any) => state.AppReducer.user);
     const dispatch = useDispatch();
 
     const logout = async () => {

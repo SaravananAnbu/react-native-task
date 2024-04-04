@@ -6,7 +6,7 @@ const defaultState = {
     isAuth: false
 }
 
-const AppReducer = (state = defaultState, action) => {
+const AppReducer = (state = defaultState, action: any) => {
     switch (action.type) {
         // Set Current user based on Auth
         case 'SET_CURRENT_USER':

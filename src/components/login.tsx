@@ -1,5 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -7,6 +7,9 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const dispatch = useDispatch();
+
+    const passwordInput = useRef<TextInput>(null);
+
     const login = () => {
         const data = {
             username, password,
@@ -18,7 +21,7 @@ const Login = () => {
             body: JSON.stringify({
                 username: 'kminchelle',
                 password: '0lelplR',
-                expiresInMins: 30, // optional, defaults to 60
+                expiresInMins: 30
             })
         })
         .then(res => res.json())
@@ -40,11 +43,11 @@ const Login = () => {
                     returnKeyType="next"
                     placeholder="Username"
                     placeholderTextColor="#777"
-                    onSubmitEditing={() => {passportInput.focus()}}
+                    onSubmitEditing={() => {passwordInput.current?.focus()}}
                 />
                 <TextInput
                     style={styles.textInput}
-                    ref={(input) => passportInput = input}
+                    ref={passwordInput}
                     onChangeText={(text) => setPassword(text) }
                     keyboardType="visible-password"
                     placeholder="Password"

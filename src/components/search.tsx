@@ -6,9 +6,9 @@ import Product from "./product";
 import allStyles from "../styles/common";
 import { useState } from "react";
 
-function debounce(func, waitTime) {
-    let timeout;
-    return (arg) => {
+function debounce(func: any, waitTime: number) {
+    let timeout: any;
+    return (arg: string) => {
         if(timeout) {
             clearTimeout(timeout);
         }
@@ -16,19 +16,19 @@ function debounce(func, waitTime) {
     }
 }
 
-const Search = ({ navigation }) => {
+const Search = ({ navigation }: any) => {
     const [searchString, setSearchString] = useState("");
-    const products = useSelector(state => state.AppReducer.searchProducts);
-    const dispatch = useDispatch();
+    const products = useSelector((state: any) => state.AppReducer.searchProducts);
+    const dispatch = useDispatch() as any;
     // const handleChange = (text) => {
     //     // setSearchString(text);
     //     searchProducts(text)
     // }
-    const handleChange = debounce((str) => {
+    const handleChange = debounce((str: string) => {
         dispatch(searchProducts(str))
     }, 1000);
 
-    const viewProduct = (productId) => {
+    const viewProduct = (productId: number) => {
         navigation.navigate("Product", { productId: productId })
     }
 
@@ -68,7 +68,7 @@ const Search = ({ navigation }) => {
                                 viewProduct={viewProduct}
                             />
                         )}
-                        keyExtractor={(item, i) => i}
+                        keyExtractor={(item, i) => i.toString()}
                         contentContainerStyle={{ flexDirection: "column" }}
                         onEndReachedThreshold={0.8}
                     /> : <Text style={[allStyles.label, { textAlign: "center"}]}>No results found</Text>

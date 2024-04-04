@@ -1,10 +1,11 @@
 import { Image, Pressable, StyleSheet, Text, View, ScrollView, Dimensions, FlatList } from "react-native";
 import Rating from "./rating";
 import allStyles from "../styles/common";
+import { useTranslation } from "react-i18next";
 
 const window = Dimensions.get("window");
 
-const Images = ({ images }) => {
+const Images = ({ images }: any) => {
     return (
         <FlatList
             data={images}
@@ -18,7 +19,8 @@ const Images = ({ images }) => {
     )
 }
 
-const Product = ({ item, viewProduct, isProductDetail }) => {
+const Product = ({ item, viewProduct, isProductDetail }: any) => {
+    const { t } = useTranslation();
     return (
         <View style={isProductDetail ? styles.viewProduct : styles.card}>
             <View style={{ flexDirection: "column", flex: 1 }}>
@@ -30,23 +32,24 @@ const Product = ({ item, viewProduct, isProductDetail }) => {
                     }
                 </View>
                 <View style={{ flex: 1, marginTop: 15, paddingHorizontal: isProductDetail ? 20 : 0 }}>
-                    <View style={{ flexDirection: "colulm", alignItems: "center", justifyContent: "space-between", marginBottom: 5}}>
+                    <View style={{ flexDirection: "column", alignItems: "center", justifyContent: "space-between", marginBottom: 5}}>
                         <Text style={styles.title}>{item.title}</Text>
-                        <Text style={styles.brand}>Brand: {item.brand}</Text>
+                        <Text style={styles.brand}>{t("brand")}: {item.brand}</Text>
                     </View>
                     <View style={{ flexDirection: "row", alignItems: "center"}}>
-                        <Text style={styles.price}>$ {item.price}</Text>
+                        <Text style={styles.oldPrice}>${item.price}</Text>
+                        <Text style={styles.price}> ${parseInt((item?.price/100)*(100-(item?.discountPercentage)))}</Text>
                         <Text style={styles.discount}>({item.discountPercentage}% off)</Text>
                     </View>
                     <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 5}}>
                         <Rating rating={item.rating}/>
-                        <Text style={styles.stock}>Stock: {item.stock}</Text>
+                        <Text style={styles.stock}>{t("stock")}: {item.stock}</Text>
                     </View>
                     <Text style={styles.desc}>{item.description}</Text>
-                    {isProductDetail && <Text style={styles.stock}>Category: {item.category}</Text>}
+                    {isProductDetail && <Text style={styles.stock}>{t("category")}: {item.category}</Text>}
                 </View>
                 {!isProductDetail && <Pressable style={[allStyles.btn, { backgroundColor: "#fff" }]} onPress={() => viewProduct(item.id, item.title)}>
-                    <Text style={[allStyles.btnTxt, { color: allStyles.btn.backgroundColor }]}>VIEW PRODUCT</Text>
+                    <Text style={[allStyles.btnTxt, { color: allStyles.btn.backgroundColor }]}>{t("viewProduct")}</Text>
                 </Pressable>}
             </View>
             {!isProductDetail &&<Text style={styles.category}>{item.category}</Text>}
@@ -91,6 +94,12 @@ const styles = StyleSheet.create({
     discount: {
         color: "grey",
         marginLeft: 5
+    },
+    oldPrice: {
+        color: "grey",
+        fontWeight: "600",
+        fontSize: 13,
+        textDecorationLine: "line-through"
     },
     price: {
         color: "grey",

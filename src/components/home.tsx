@@ -5,16 +5,18 @@ import { clearProducts, getAllProducts } from "../actions/products";
 import Product from "./product";
 import { useState } from "react";
 import allStyles from "../styles/common";
+import { useTranslation } from "react-i18next";
 
-const Home = ({ navigation }) => {
+const Home = ({ navigation }: any) => {
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(5);
     const [selfRefresh, setSelfRefresh] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.AppReducer.products);
-    const isAuth = useSelector(state => state.AppReducer.isAuth);
+    const dispatch = useDispatch() as any;
+    const { t } = useTranslation();
+    const products = useSelector((state: any) => state.AppReducer.products);
+    const isAuth = useSelector((state: any) => state.AppReducer.isAuth);
 
     useEffect(() => {
         dispatch(getAllProducts({ page, limit }));
@@ -24,7 +26,7 @@ const Home = ({ navigation }) => {
         setLoading(false);
     }, [products])
 
-    const viewProduct = (productId, productName) => {
+    const viewProduct = (productId: number|string, productName: string) => {
         navigation.navigate("Product", { productId: productId, productName })
     }
 
@@ -38,7 +40,7 @@ const Home = ({ navigation }) => {
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 15, borderBottomColor: "#777", borderBottomWidth: 0.5 }}>
                 <Text style={[styles.btnTxt, { color: "#000", fontSize: 19 }]}>All Products</Text>
                 <Pressable style={[allStyles.btn, { opacity: isAuth ? 1 : 0.5, width: "40%", marginTop: 0 }]} onPress={() => navigation.navigate("AddProduct")} disabled={!isAuth}>
-                    <Text style={[allStyles.btnTxt, { fontSize: 14 }]}>+ Add Product</Text>
+                    <Text style={[allStyles.btnTxt, { fontSize: 14 }]}>+ {t("addProduct")}</Text>
                 </Pressable>
             </View>
             <FlatList
@@ -48,7 +50,7 @@ const Home = ({ navigation }) => {
                         <View>
                             {(!selfRefresh && !loading) &&
                                 <View style={{ justifyContent: 'center', alignSelf: 'center', alignItems: 'center', paddingTop: 50 }}>
-                                    <Text style={{ textAlign: 'center', color: "#555", fontSize: 16 }}>No Data Found</Text>
+                                    <Text style={{ textAlign: 'center', color: "#555", fontSize: 16 }}>{t("noResultsFound")}</Text>
                                 </View>
                             }
                         </View>
@@ -85,7 +87,7 @@ const Home = ({ navigation }) => {
                         colors={["#684DB8"]}
                     />
                 }
-                keyExtractor={(item, i) => i}
+                keyExtractor={(item, i) => i.toString()}
                 contentContainerStyle={{ flexDirection: "column" }}
                 onEndReachedThreshold={0.8}
                 onEndReached={loadMore}
