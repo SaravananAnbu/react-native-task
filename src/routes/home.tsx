@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { ActivityIndicator, Alert, Dimensions, FlatList, Image, Pressable, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { clearProducts, getAllProducts } from "../actions/products";
-import Product from "./product";
+import Product from "../components/product";
 import { useState } from "react";
 import allStyles from "../styles/common";
 import { useTranslation } from "react-i18next";

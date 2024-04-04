@@ -23,12 +23,12 @@ import store from './src/store';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/components/home';
-import Search from './src/components/search';
-import Account from './src/components/account';
-import ProductDetail from './src/components/product-detail';
+import Home from './src/routes/home';
+import Search from './src/routes/search';
+import Account from './src/routes/account';
+import ProductDetail from './src/routes/product-detail';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AddProductForm from './src/components/add-product';
+import AddProductForm from './src/routes/add-product';
 import { I18nextProvider } from 'react-i18next';
 import i18n from './src/i18n';
 
@@ -111,7 +111,7 @@ function App() {
                                 tabBarIcon: ({ focused, color, size }) => {
                                     let iconName;
                                     // Render AntIcons
-                                    if (route.name === 'Home') {
+                                    if (route.name === ('Home')) {
                                         iconName = 'H';
                                     } else if (route.name === 'Search') {
                                         iconName = 'S';

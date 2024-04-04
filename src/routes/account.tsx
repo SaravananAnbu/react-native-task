@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import Login from "./login";
-import Profile from "./profile";
+import Login from "../components/login";
+import Profile from "../components/profile";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Account = () => {

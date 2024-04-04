@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSearchProducts, searchProducts } from "../actions/products";
-import Product from "./product";
+import Product from "../components/product";
 import allStyles from "../styles/common";
 import { useState } from "react";
 
